@@ -2,6 +2,16 @@
 
 using namespace std;
 double a[3][4], itog[3];
+void print()
+{
+	cout << "Print array:\n";
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 4; j++)
+			cout << a[i][j] << "\t";
+		cout << endl;
+	}
+}
 void init_matrix(double a[3][4])
 {
 	a[0][0] = 5; a[0][1] = 4; a[0][2] = 21; a[0][3] = 3;
@@ -9,9 +19,39 @@ void init_matrix(double a[3][4])
 	a[2][0] = 10; a[2][1] = 11; a[2][2] = 0; a[2][3] = 4;
 
 }
+void swap(int m, int k)
+{
+	double temp;
+	for (int i = 0; i < 3; i++)
+	{
+		temp = a[k][i];
+		a[k][i] = a[m][i];
+		a[m][i] = temp;
+	}
+}
+int check(int l)
+{
+	for (int i = l; i < 3; i++)
+	{
+		for (int j = i + 1; j < 4; j++)
+		{
+			if (abs(a[i][l]) < abs(a[j][l]))
+				swap(i, j);
+		}
+	}
+	l++;
+	print();
+	if (l < 3)
+		check(l);
+	return 0;
+}
 int main()
 {
 	init_matrix(a);
+	print();
+	check(0);
+	for (int i = 1; i <= 3; i++)
+		calculate(i);
 	system("pause");
 	return 0;
 }
