@@ -45,6 +45,40 @@ int check(int l)
 		check(l);
 	return 0;
 }
+int preclaculate()
+{
+	for (int i = 0; i < 3; i++)
+	{
+		double temp = a[i][i];
+		for (int j = 0; j < 4; j++)
+		{
+			a[i][j] = a[i][j] / temp;
+
+		}
+
+	}
+	return 0;
+}
+int calculate(int k)
+{
+	double temp[3] = { 0 };
+	for (int i = 0; i < 3; i++)
+	{
+		for (int j = 0; j < 3; j++)
+		{
+			if (i != j)
+			{
+				temp[i] += a[i][j] * itog[j];
+			}
+			if (j == 2)
+			{
+				itog[i] = (a[i][3] - temp[i]) / a[i][i];
+			}
+		}
+		cout << " i = " << k << "; x" << i << " = " << itog[i] << endl;
+	}
+	return 0;
+}
 int main()
 {
 	init_matrix(a);
