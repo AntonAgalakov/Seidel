@@ -1,7 +1,7 @@
 #include <iostream>
 
 using namespace std;
-double a[3][4], itog[3];
+double a[3][4], itog[3] = { 0 };
 void print()
 {
 	cout << "Print array:\n";
@@ -84,6 +84,8 @@ int main()
 	init_matrix(a);
 	print();
 	check(0);
+	preclaculate();
+	print();
 	for (int i = 1; i <= 3; i++)
 		calculate(i);
 	system("pause");
