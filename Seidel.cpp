@@ -2,6 +2,7 @@
 
 using namespace std;
 double a[3][4], itog[3] = { 0 };
+double eps = 0.001;
 void print()
 {
 	cout << "Print array:\n";
@@ -22,7 +23,7 @@ void init_matrix(double a[3][4])
 void swap(int m, int k)
 {
 	double temp;
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		temp = a[k][i];
 		a[k][i] = a[m][i];
@@ -45,23 +46,37 @@ int check(int l)
 		check(l);
 	return 0;
 }
+int checkend(double x[3], double itog[3])
+{
+	double max = 0;
+	double temp;
+	for(int i = 0; i < 3; i++)
+	{
+		temp = abs(x[i] - itog[i]);
+		if(max < temp)
+			max = temp;
+	}
+	if(max < eps)
+		return 0;
+	return 1;
+
+}
 int preclaculate()
 {
 	for (int i = 0; i < 3; i++)
 	{
 		double temp = a[i][i];
 		for (int j = 0; j < 4; j++)
-		{
 			a[i][j] = a[i][j] / temp;
-
-		}
-
 	}
 	return 0;
 }
 int calculate(int k)
 {
 	double temp[3] = { 0 };
+	double x[3];
+	for(int i = 0; i < 3; i++)
+		x[i] = itog[i];
 	for (int i = 0; i < 3; i++)
 	{
 		for (int j = 0; j < 3; j++)
@@ -77,17 +92,20 @@ int calculate(int k)
 		}
 		cout << " i = " << k << "; x" << i << " = " << itog[i] << endl;
 	}
-	return 0;
+	return checkend(x, itog);;
 }
 int main()
 {
+	int i = 1;
 	init_matrix(a);
 	print();
 	check(0);
 	preclaculate();
 	print();
-	for (int i = 1; i <= 3; i++)
-		calculate(i);
+	while(calculate(i) != 0)
+	{
+		i++;
+	}
 	system("pause");
 	return 0;
 }
